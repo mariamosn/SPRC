@@ -1,3 +1,9 @@
+/*
+ * Maria Moșneag
+ * 343C1
+ * Tema 1 SPRC
+ */
+
 #define CLIENT_IN_LEN   200
 #define ID_LEN          15
 #define RES_LEN         100
