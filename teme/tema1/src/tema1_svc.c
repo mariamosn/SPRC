@@ -92,8 +92,8 @@ main (int argc, char **argv)
 {
 	// EXTRA SECTION START
 	if (argc != 5) {
-		fprintf(stderr, "Usage:\n\t%s <USER_IDS> <RESOURCES> <APPROVALS> \
-							<VALABILITY>\n", argv[0]);
+		fprintf(stderr, "Usage:\n\t%s <USER_IDS> <RESOURCES> <APPROVALS>"
+						" <VALABILITY>\n", argv[0]);
 		return -1;
 	}
 

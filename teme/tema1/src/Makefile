@@ -8,13 +8,13 @@ SRC_CLIENT = $(PROGRAM)_clnt.c $(PROGRAM)_xdr.c
 
 .PHONY: build clean
 
-without_rpcgen: db.o
+build: db.o
 	$(CC) $(CFLAGS) $(SRC_SERVER) $(PROGRAM)_rpc_server.cpp db.o \
 		-o server $(LDFLAGS)
 	$(CC) $(CFLAGS) $(SRC_CLIENT) $(PROGRAM)_rpc_client.cpp \
 		-o client $(LDFLAGS)
 
-build: server client
+build_with_rpcgen: server client
 
 server: $(SRC_SERVER) $(PROGRAM)_rpc_server.cpp db.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
