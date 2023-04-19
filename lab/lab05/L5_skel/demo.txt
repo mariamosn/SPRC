@@ -1,0 +1,5 @@
+subscribe
+mosquitto_sub -h localhost -t test
+
+Publish to test channel
+mosquitto_pub -h localhost -t test -m "Salut Lab05 SPRC!"
