@@ -1,0 +1,99 @@
+Maria Moșneag
+343C1
+Tema 2 SPRC
+
+Usage:
+    From . : docker-compose up --build
+
+
+Structure:
+    .
+    |--- app
+    |     |--- .dockerignore
+    |     |--- Dockerfile
+    |     |--- requirements.txt
+    |     |--- config.py
+    |     |--- app.py
+    |     |--- init.py
+    |     |--- models.py
+    |     |--- routes.py
+    |
+    |--- db
+    |     |--- init.sql
+    |
+    |--- docker-compose.yml
+    |--- README
+
+
+Parts:
+
+    + db:
+        - localhost:6000
+        - PostgreSQL
+        - init script: ./db/init.sql
+        - tables:
+            Tari
+                id: Int
+                nume_tara: Str
+                latitudine: Double
+                longitudine: Double
+
+            Orase
+                id: Int
+                id_tara: Int
+                nume_oras: Str
+                latitudine: Double
+                longitudine: Double
+
+            Temperaturi
+                id: Int
+                valoare: Double
+                timestamp: Date
+                id_oras: Int
+
+    + db_admin:
+        - localhost:8080
+        - adminer image
+
+    + api:
+        - localhost:6000
+        - sources: ./app
+        - routes:
+            /api/countries
+                POST    => add country
+                GET     => get countries
+            /api/countries/<id>
+                PUT     => update country
+                DELETE  => delete country
+            /api/cities
+                POST    => add city
+                GET     => get cities
+            /api/cities/country/<id_Tara>
+                GET     => get cities from specific country
+            /api/cities/<id>
+                PUT     => update city
+                DELETE  => delete city
+            /api/temperatures
+                POST    => add temperature
+                GET     => get filtered temperatures
+            /api/temperatures/cities/<id>
+                GET     => get filtered temperatures from specific city
+            /api/temperatures/countries/<id_tara>
+                GET     => get filtered temperatures from specific country
+            /api/temperatures/<id>
+                PUT     => update temperature
+                DELETE  => delete temperature
+
+
+Resources:
+
+lab 3, lab 4 - SPRC
+
+https://geshan.com.np/blog/2021/12/docker-postgres/
+https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
+https://medium.com/free-code-camp/docker-development-workflow-a-guide-with-flask-and-postgres-db1a1843044a
+https://dev.to/yactouat/flask-postgres-sqlalchemy-migrations-dockerized-intro-2f8p
+https://levelup.gitconnected.com/creating-and-filling-a-postgres-db-with-docker-compose-e1607f6f882f
+https://www.tinystacks.com/blog-post/flask-crud-api-with-postgres/
+https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
+https://haseebmajid.dev/posts/2018-11-24-building-a-simple-flask-app-with-sqlalchemy-and-docker/

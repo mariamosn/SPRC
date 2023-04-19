@@ -1,0 +1,47 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: db
+    image: postgres:14.1-alpine
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/postgresql/data      
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: weather_db
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - api_net
+      - admin_net
+  
+  api:
+    container_name: api
+    restart: always
+    build: ./app
+    ports:
+      - 6000:5000
+    depends_on:
+      - db
+    networks:
+      - api_net
+  
+  db_admin:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - admin_net
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  api_net:
+  admin_net:
